@@ -1,0 +1,7 @@
+# Function dependencies, for example:
+# package>=version
+pandas
+datetime
+numpy
+seaborn
+google-cloud-pubsub
