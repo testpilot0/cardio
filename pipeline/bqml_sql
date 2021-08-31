@@ -1,0 +1,21 @@
+#Example (Create Model):
+ 	CREATE OR REPLACE MODEL `my-project.cardiology.fitbit_sleep06_arima_plus_seond_0` 
+OPTIONS(
+ MODEL_TYPE=’ARIMA_PLUS’,
+ TIME_SERIES_TIMESTAMP_COL=’tm’,
+ TIME_SERIES_DATA_COL=’Heart_Rate’
+) AS
+SELECT timestamp_seconds(_0*60) tm, Heart_Rate FROM `covid-19–271622.cardiology.cardio_test1` 
+where Date___Time < ‘2021–06–25 06:00:00 UTC’
+order by _0
+
+#Example (Detect Anomalies)
+SELECT timestamp_seconds(_0*60) timestmp, Heart_Rate FROM `my-project.cardiology.cardio_test1_anomaly` 
+where timestamp_seconds(_0*60) >= ‘2021–08–23 03:23:00 UTC’ and timestamp_seconds(_0*60) <= ‘2021–08–23 07:15:00 UTC’
+order by timestmp
+
+#General SQL
+SELECT * FROM
+  ML.DETECT_ANOMALIES(MODEL `mydataset.my_arima_plus_model`,
+                      STRUCT(0.8 AS anomaly_prob_threshold))
+
